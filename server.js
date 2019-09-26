@@ -36,14 +36,56 @@ const oauth = async ctx => {
             Authorization: `token ${accessToken}`
         }
     });
-    console.log(result.data)
+    checkUser(result.data)
     ctx.cookies.set(
         'cid',
         result.data.id)
     ctx.response.redirect('/welcome.html');
 
 
+
 }
+
+const checkUser = async obj => {
+
+    const result = await new Promise((reso, reje) => {
+        fs.readFile(__dirname + '/data.json', 'utf-8', (err, data) => {
+            let users = [];
+            if (data.length > 0) {
+                users = JSON.parse(data.toString());
+            }
+            let hasRepeat = users.filter((item) => item.id === obj.id);
+                   console.log(hasRepeat)
+            if (hasRepeat.length==0) {
+                users.push(obj);
+                fs.writeFile(path.join(__dirname + '/data.json'), JSON.stringify(users), function (err) {
+                })
+            }
+
+            reso(data.toString())
+
+        });
+    })
+
+}
+
+
+
+const readFile = async   ctx => {
+    const result = await new Promise((reso, reje) => {
+        fs.readFile(__dirname + '/data.json', 'utf-8', (err, data) => {
+            reso(data.toString())
+
+        });
+    })
+    console.log(result)
+    ctx.response.body = result;
+
+}
+
+
 app.use(main)
+
+app.use(route.get('/txt', readFile))
 app.use(route.get('/redirect', oauth));
 app.listen(3000);
