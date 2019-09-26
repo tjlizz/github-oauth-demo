@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+     <a  id="login">测试</a>
+</body>
+<script>
+ const clientID='4012c84f24f86366ebe0';
+  const authorize_uri = 'https://github.com/login/oauth/authorize';
+  const redirect_uri = 'http://localhost:3000/redirect';
+  const link = document.getElementById('login');
+  link.href = `${authorize_uri}?client_id=${clientID}&redirect_uri=${redirect_uri}`;
+ 
+
+</script>
+</html>
