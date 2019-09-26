@@ -49,7 +49,7 @@ const oauth = async ctx => {
 const checkUser = async obj => {
 
     const result = await new Promise((reso, reje) => {
-        fs.readFile(__dirname + '/data.json', 'utf-8', (err, data) => {
+        fs.readFile("D:\\datajson.json", 'utf-8', (err, data) => {
             let users = [];
             if (data.length > 0) {
                 users = JSON.parse(data.toString());
@@ -58,7 +58,7 @@ const checkUser = async obj => {
                    console.log(hasRepeat)
             if (hasRepeat.length==0) {
                 users.push(obj);
-                fs.writeFile(path.join(__dirname + '/data.json'), JSON.stringify(users), function (err) {
+                fs.writeFile("D:\\datajson.json", JSON.stringify(users), function (err) {
                 })
             }
 
